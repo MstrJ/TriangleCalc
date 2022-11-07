@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MasterJ\\Source\\Repos\\TriangleCalc\\test1\\test1\\test1.csproj": {}
+    "C:\\Users\\MasterJ\\source\\repos\\TriangleCalc\\test1\\test1\\test1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MasterJ\\Source\\Repos\\TriangleCalc\\test1\\test1\\test1.csproj": {
+    "C:\\Users\\MasterJ\\source\\repos\\TriangleCalc\\test1\\test1\\test1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MasterJ\\Source\\Repos\\TriangleCalc\\test1\\test1\\test1.csproj",
+        "projectUniqueName": "C:\\Users\\MasterJ\\source\\repos\\TriangleCalc\\test1\\test1\\test1.csproj",
         "projectName": "test1",
-        "projectPath": "C:\\Users\\MasterJ\\Source\\Repos\\TriangleCalc\\test1\\test1\\test1.csproj",
+        "projectPath": "C:\\Users\\MasterJ\\source\\repos\\TriangleCalc\\test1\\test1\\test1.csproj",
         "packagesPath": "C:\\Users\\MasterJ\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MasterJ\\Source\\Repos\\TriangleCalc\\test1\\test1\\obj\\",
+        "outputPath": "C:\\Users\\MasterJ\\source\\repos\\TriangleCalc\\test1\\test1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

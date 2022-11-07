@@ -176,7 +176,6 @@ class Rectangle : PointCenter,IFigure
     public double Perimeter()
     {
         Boki();
-        //return Math.Pow(bokAB,2) + Math.Pow(bokBC,2);
         return bokAB * 2 + bokBC * 2;
     }
 
