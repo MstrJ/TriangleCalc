@@ -7,10 +7,10 @@ interface IFigure
 
 interface IPointMovement
 {
-    void MoveUp();
-    void MoveDown();
-    void MoveLeft();
-    void MoveRight();
+    void MoveUp(int yMove);
+    void MoveDown(int yMove);
+    void MoveLeft(int xMove);
+    void MoveRight(int xMove);
 }
 class PointCenter : IPointMovement
 {
@@ -23,8 +23,8 @@ class PointCenter : IPointMovement
     {
         this.x = x;
         this.y = y;
-        yMove = 0;
-        xMove = 0;
+        yMove = 2;
+        xMove = 2;
     }
     public PointCenter(int x, int y, int yMove, int xMove)
     {
@@ -33,19 +33,19 @@ class PointCenter : IPointMovement
         this.yMove = yMove;
         this.xMove = xMove;
     }
-    public void MoveUp()
+    public void MoveUp(int yMove)
     {
-        y += yMove;
+        y += this.yMove;
     }
-    public void MoveDown()
+    public void MoveDown(int yMove)
     {
         y -= yMove;
     }
-    public void MoveLeft()
+    public void MoveLeft(int xMove)
     {
         x -= xMove;
     }
-    public void MoveRight()
+    public void MoveRight(int xMove)
     {
         x += xMove;
     }
@@ -65,17 +65,26 @@ class Triangle : IFigure
     double bokAB;
     double bokBC;
     double bokCA;
-    public Triangle(PointCenter punktA, PointCenter punktB, PointCenter punktC)
+
+    int xMove;
+    int yMove;
+    public Triangle(PointCenter punktA, PointCenter punktB, PointCenter punktC,int xMove,int yMove)
     {
         this.punktA = punktA;
         this.punktB = punktB;
         this.punktC = punktC;
+        this.xMove = xMove;
+        this.yMove = yMove;
+    }
+    public double PointsRange(PointCenter p1, PointCenter p2)
+    {
+        return Math.Sqrt(Math.Pow((p1.x - p2.x), 2) + Math.Pow((p1.y - p2.y), 2));
     }
     public void Boki()
     {
-        bokAB = Math.Sqrt(Math.Pow((punktA.x - punktB.x), 2) + Math.Pow((punktA.y - punktB.y), 2));
-        bokBC = Math.Sqrt(Math.Pow((punktB.x - punktC.x), 2) + Math.Pow((punktB.y - punktC.y), 2));
-        bokCA = Math.Sqrt(Math.Pow((punktC.x - punktA.x), 2) + Math.Pow((punktC.y - punktA.y), 2));
+        bokAB = PointsRange(punktA, punktB);
+        bokBC = PointsRange(punktB, punktC);
+        bokCA = PointsRange(punktC, punktA);
     }
     public double Area()
     {
@@ -93,13 +102,40 @@ class Triangle : IFigure
 
     public void ViewResult()
     {
-        Console.WriteLine($"Area: {this.Area():F2}, Perimeter: {Perimeter():F2}");
+        Console.WriteLine($"Area: {Area():F2}, Perimeter: {Perimeter():F2}");
     }
 
     public void ViewPoint()
     {
         Boki();
         Console.WriteLine($"a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}");
+    }
+    public void MoveUp()
+    {
+        punktA.MoveUp(yMove);
+        punktB.MoveUp(yMove);
+        punktC.MoveUp(yMove);
+    }
+
+    public void MoveDown()
+    {
+        punktA.MoveDown(yMove);
+        punktB.MoveDown(yMove);
+        punktC.MoveDown(yMove);
+    }
+
+    public void MoveLeft()
+    {
+        punktA.MoveLeft(xMove);
+        punktB.MoveLeft(xMove);
+        punktC.MoveLeft(xMove);
+    }
+
+    public void MoveRight()
+    {
+        punktA.MoveRight(xMove);
+        punktB.MoveRight(xMove);
+        punktC.MoveRight(xMove);
     }
 
 }
@@ -118,8 +154,12 @@ class Program
         var b = new PointCenter(0, 4);
         var c = new PointCenter(-4, 4);
 
-        var trojkat = new Triangle(a,b,c);
+        var trojkat = new Triangle(a,b,c,2,2);
         //trojkat.Viewboki();
+        trojkat.ViewPoint();
+
+        
+        trojkat.MoveUp();
         trojkat.ViewPoint();
         trojkat.ViewResult();
         //Console.WriteLine(trojkat.Perimeter());
