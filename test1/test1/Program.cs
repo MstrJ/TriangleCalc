@@ -1,5 +1,4 @@
-﻿
-interface IFigure
+﻿interface IFigure
 {
     double Area();
     double Perimeter();
