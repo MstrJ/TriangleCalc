@@ -106,28 +106,28 @@ class Triangle : PointCenter,IFigure
         Boki();
         Console.WriteLine($"{this}\n a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}");
     }
-    public void MoveUp()
+    public new void MoveUp()
     {
         punktA.MoveUp();
         punktB.MoveUp();
         punktC.MoveUp();
     }
 
-    public void MoveDown()
+    public new void MoveDown()
     {
         punktA.MoveDown();
         punktB.MoveDown();
         punktC.MoveDown();
     }
 
-    public void MoveLeft()
+    public new void MoveLeft()
     {
         punktA.MoveLeft();
         punktB.MoveLeft();
         punktC.MoveLeft();
     }
 
-    public void MoveRight()
+    public new void MoveRight()
     {
         punktA.MoveRight();
         punktB.MoveRight();
@@ -135,7 +135,7 @@ class Triangle : PointCenter,IFigure
     }
 
 }
-class Rectangle : PointCenter,IFigure
+class Rectangle : PointCenter,IFigure, IPointMovement
 {
     PointCenter punktA;
     PointCenter punktB;
@@ -145,11 +145,12 @@ class Rectangle : PointCenter,IFigure
     double bokAB;
     double bokBC;
 
-    public Rectangle(PointCenter punktA, PointCenter punktB, PointCenter punktC,int xMove,int yMove) : base(xMove,yMove)
+    public Rectangle(PointCenter punktA, PointCenter punktB, PointCenter punktC, PointCenter punktD, int xMove,int yMove) : base(xMove,yMove)
     {
         this.punktA = punktA;
         this.punktB = punktB;
         this.punktC = punktC;
+        this.punktD = punktD;
         
     }
     public double PointsRange(PointCenter p1, PointCenter p2)
@@ -160,7 +161,6 @@ class Rectangle : PointCenter,IFigure
     {
         bokAB = PointsRange(punktA, punktB);
         bokBC = PointsRange(punktB, punktC);
-        punktD = new PointCenter(punktA.x > 0 ? punktA.x - bokBC : punktA.x + bokBC, punktA.y > 0 ? punktA.y - bokBC : punktA.y + bokBC);
     }
     public double Area()
     {
@@ -184,28 +184,28 @@ class Rectangle : PointCenter,IFigure
         Boki();
         Console.WriteLine($"{this}\n a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}; d: {punktD.x}, {punktD.y}");
     }
-    public void MoveUp()
+    public new void MoveUp()
     {
         punktA.MoveUp();
         punktB.MoveUp();
         punktC.MoveUp();
     }
 
-    public void MoveDown()
+    public new void MoveDown()
     {
         punktA.MoveDown();
         punktB.MoveDown();
         punktC.MoveDown();
     }
 
-    public void MoveLeft()
+    public new void MoveLeft()
     {
         punktA.MoveLeft();
         punktB.MoveLeft();
         punktC.MoveLeft();
     }
 
-    public void MoveRight()
+    public new void MoveRight()
     {
         punktA.MoveRight();
         punktB.MoveRight();
@@ -230,16 +230,17 @@ class Program
 
         var trojkat = new Triangle(a1,b1,c1,2,2);
         trojkat.ViewPoints();
-
         trojkat.MoveUp();
         trojkat.ViewPoints();
         trojkat.ViewResult();
 
-        var a2 = new PointCenter(0, 0);
-        var b2 = new PointCenter(0, 6);
-        var c2 = new PointCenter(-4, 6);
 
-        var prostokat = new Rectangle(a2, b2, c2,4,4);
+        var a2 = new PointCenter(0, 0);
+        var b2 = new PointCenter(-2, 0);
+        var c2 = new PointCenter(-2, 2);
+        var d2 = new PointCenter(0, 2);
+
+        var prostokat = new Rectangle(a2, b2, c2,d2,4,4);
         prostokat.ViewPoints();
         prostokat.ViewResult();
     }
