@@ -1,2 +1,2 @@
 # hello-world1
-- to jest moje testowe README
+- To jest moje testowe README oraz dany projekt zawiera program do liczenia pola i obwodu trójkąta :pizza:.
