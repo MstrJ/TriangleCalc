@@ -156,16 +156,11 @@ class Rectangle : PointCenter,IFigure
     {
         return Math.Sqrt(Math.Pow((p1.x - p2.x), 2) + Math.Pow((p1.y - p2.y), 2));
     }
-
-    public void PunktD()
-    {
-        punktD = new PointCenter(punktA.x > 0 ? punktA.x - bokBC : punktA.x + bokBC, punktA.y > 0 ? punktA.y - bokBC : punktA.y + bokBC);
-    }
     public void Boki()
     {
         bokAB = PointsRange(punktA, punktB);
         bokBC = PointsRange(punktB, punktC);
-        PunktD();
+        punktD = new PointCenter(punktA.x > 0 ? punktA.x - bokBC : punktA.x + bokBC, punktA.y > 0 ? punktA.y - bokBC : punktA.y + bokBC);
     }
     public double Area()
     {
