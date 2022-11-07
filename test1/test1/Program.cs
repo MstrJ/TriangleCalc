@@ -2,60 +2,61 @@
 {
     double Area();
     double Perimeter();
+    public void Boki();
 }
 
 interface IPointMovement
 {
-    void MoveUp(int yMove);
-    void MoveDown(int yMove);
-    void MoveLeft(int xMove);
-    void MoveRight(int xMove);
+    void MoveUp();
+    void MoveDown();
+    void MoveLeft();
+    void MoveRight();
 }
 class PointCenter : IPointMovement
 {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     int yMove;
     int xMove;
 
-    public PointCenter(int x, int y)
+    public PointCenter(double x, double y)
     {
         this.x = x;
         this.y = y;
         yMove = 2;
         xMove = 2;
     }
-    public PointCenter(int x, int y, int yMove, int xMove)
+    public PointCenter(double x, double y, int yMove, int xMove)
     {
         this.x = x;
         this.y = y;
         this.yMove = yMove;
         this.xMove = xMove;
     }
-    public void MoveUp(int yMove)
+    public void MoveUp()
     {
         y += this.yMove;
     }
-    public void MoveDown(int yMove)
+    public void MoveDown()
     {
-        y -= yMove;
+        y -= this.yMove;
     }
-    public void MoveLeft(int xMove)
+    public void MoveLeft()
     {
-        x -= xMove;
+        x -= this.xMove;
     }
-    public void MoveRight(int xMove)
+    public void MoveRight()
     {
-        x += xMove;
+        x += this.xMove;
     }
 
     public void View()
     {
-        Console.WriteLine($"x: {x}, y: {y}\t xMove: {xMove}, yMove: {yMove}");
+        Console.WriteLine($"{this}\n x: {x}, y: {y}\t xMove: {xMove}, yMove: {yMove}");
     }
 }
 
-class Triangle : IFigure
+class Triangle : PointCenter,IFigure
 {
     PointCenter punktA;
     PointCenter punktB;
@@ -65,15 +66,11 @@ class Triangle : IFigure
     double bokBC;
     double bokCA;
 
-    int xMove;
-    int yMove;
-    public Triangle(PointCenter punktA, PointCenter punktB, PointCenter punktC,int xMove,int yMove)
+    public Triangle(PointCenter punktA, PointCenter punktB, PointCenter punktC,int xMove,int yMove) : base(xMove,yMove)
     {
         this.punktA = punktA;
         this.punktB = punktB;
         this.punktC = punktC;
-        this.xMove = xMove;
-        this.yMove = yMove;
     }
     public double PointsRange(PointCenter p1, PointCenter p2)
     {
@@ -101,40 +98,124 @@ class Triangle : IFigure
 
     public void ViewResult()
     {
-        Console.WriteLine($"Area: {Area():F2}, Perimeter: {Perimeter():F2}");
+        Console.WriteLine($"{this}\n Area: {Area():F2}, Perimeter: {Perimeter():F2}");
     }
 
-    public void ViewPoint()
+    public void ViewPoints()
     {
         Boki();
-        Console.WriteLine($"a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}");
+        Console.WriteLine($"{this}\n a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}");
     }
     public void MoveUp()
     {
-        punktA.MoveUp(yMove);
-        punktB.MoveUp(yMove);
-        punktC.MoveUp(yMove);
+        punktA.MoveUp();
+        punktB.MoveUp();
+        punktC.MoveUp();
     }
 
     public void MoveDown()
     {
-        punktA.MoveDown(yMove);
-        punktB.MoveDown(yMove);
-        punktC.MoveDown(yMove);
+        punktA.MoveDown();
+        punktB.MoveDown();
+        punktC.MoveDown();
     }
 
     public void MoveLeft()
     {
-        punktA.MoveLeft(xMove);
-        punktB.MoveLeft(xMove);
-        punktC.MoveLeft(xMove);
+        punktA.MoveLeft();
+        punktB.MoveLeft();
+        punktC.MoveLeft();
     }
 
     public void MoveRight()
     {
-        punktA.MoveRight(xMove);
-        punktB.MoveRight(xMove);
-        punktC.MoveRight(xMove);
+        punktA.MoveRight();
+        punktB.MoveRight();
+        punktC.MoveRight();
+    }
+
+}
+class Rectangle : PointCenter,IFigure
+{
+    PointCenter punktA;
+    PointCenter punktB;
+    PointCenter punktC;
+    PointCenter punktD;
+
+    double bokAB;
+    double bokBC;
+
+    public Rectangle(PointCenter punktA, PointCenter punktB, PointCenter punktC,int xMove,int yMove) : base(xMove,yMove)
+    {
+        this.punktA = punktA;
+        this.punktB = punktB;
+        this.punktC = punktC;
+        
+    }
+    public double PointsRange(PointCenter p1, PointCenter p2)
+    {
+        return Math.Sqrt(Math.Pow((p1.x - p2.x), 2) + Math.Pow((p1.y - p2.y), 2));
+    }
+
+    public void PunktD()
+    {
+        punktD = new PointCenter(punktA.x > 0 ? punktA.x - bokBC : punktA.x + bokBC, punktA.y > 0 ? punktA.y - bokBC : punktA.y + bokBC);
+    }
+    public void Boki()
+    {
+        bokAB = PointsRange(punktA, punktB);
+        bokBC = PointsRange(punktB, punktC);
+        PunktD();
+    }
+    public double Area()
+    {
+        Boki();
+        return bokAB*bokBC;
+    }
+
+    public double Perimeter()
+    {
+        Boki();
+        //return Math.Pow(bokAB,2) + Math.Pow(bokBC,2);
+        return bokAB * 2 + bokBC * 2;
+    }
+
+    public void ViewResult()
+    {
+        Console.WriteLine($"{this}\n Area: {Area():F2}, Perimeter: {Perimeter():F2}");
+    }
+
+    public void ViewPoints()
+    {
+        Boki();
+        Console.WriteLine($"{this}\n a: {punktA.x}, {punktA.y}; b: {punktB.x}, {punktB.y}; c: {punktC.x}, {punktC.y}; d: {punktD.x}, {punktD.y}");
+    }
+    public void MoveUp()
+    {
+        punktA.MoveUp();
+        punktB.MoveUp();
+        punktC.MoveUp();
+    }
+
+    public void MoveDown()
+    {
+        punktA.MoveDown();
+        punktB.MoveDown();
+        punktC.MoveDown();
+    }
+
+    public void MoveLeft()
+    {
+        punktA.MoveLeft();
+        punktB.MoveLeft();
+        punktC.MoveLeft();
+    }
+
+    public void MoveRight()
+    {
+        punktA.MoveRight();
+        punktB.MoveRight();
+        punktC.MoveRight();
     }
 
 }
@@ -143,27 +224,29 @@ class Program
 
     public static void Main()
     {
-        //var a = new PointCenter(0, 4, 5, 5);
-        //a.View();
-        //a.MoveUp();
-        //a.View();
+        var p1 = new PointCenter(0, 0, 1, 2);
+        p1.View();
+        p1.MoveUp();
+        p1.View();
 
+        Console.WriteLine();
+        var a1 = new PointCenter(0, 0);
+        var b1 = new PointCenter(0, 4);
+        var c1 = new PointCenter(-4, 4);
 
-        var a = new PointCenter(0, 0);
-        var b = new PointCenter(0, 4);
-        var c = new PointCenter(-4, 4);
+        var trojkat = new Triangle(a1,b1,c1,2,2);
+        trojkat.ViewPoints();
 
-        var trojkat = new Triangle(a,b,c,2,2);
-        //trojkat.Viewboki();
-        trojkat.ViewPoint();
-
-        
         trojkat.MoveUp();
-        trojkat.ViewPoint();
+        trojkat.ViewPoints();
         trojkat.ViewResult();
-        //Console.WriteLine(trojkat.Perimeter());
-        //Console.WriteLine(trojkat.Area());
 
-        //Console.WriteLine($"wynik: {2*2/2}");
+        var a2 = new PointCenter(0, 0);
+        var b2 = new PointCenter(0, 6);
+        var c2 = new PointCenter(-4, 6);
+
+        var prostokat = new Rectangle(a2, b2, c2,4,4);
+        prostokat.ViewPoints();
+        prostokat.ViewResult();
     }
 }
